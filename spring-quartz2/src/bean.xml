@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean
+        class="HelloVO" id="hello">
+        <property name="name" value="johns"/>
+		<property name="age"  value = "11"/>
+		<property name="birth" value="2020-05-09"/>
+    </bean>
+
+  <bean
+        class="HelloVO" id="info">
+        <property name="name" value="jo"/>
+		<property name="age"  value = "29"/>
+		<property name="birth" value="93-02-05"/>
+    </bean>
+
+
+  <bean
+        class="HelloVO" id="info2">
+       <constructor-arg index="0"><value> jo </value> </constructor-arg>
+       <constructor-arg index="1"><value> 29 </value> </constructor-arg>
+       <constructor-arg index="2"><value> 93-02-05 </value> </constructor-arg>
+    </bean>
+
+   <bean id="batchJob"
+         class="org.springframework.scheduling.quartz.JobDetailBean">
+       <property name="jobClass" value="ScheduledTaskBean"/>
+   </bean>
+
+<!--    <bean id="batchJob"-->
+<!--          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+<!--        <property name="targetObject" ref="scheduledTaskBean"/>-->
+<!--        <property name="targetMethod" value="printMe"/>-->
+<!--    </bean>-->
+    <bean id="dailyTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="batchJob"/>
+        <property name="cronExpression" value="*/10 * * * * ?"/>
+        <!-- 10초 마다 수행된다 -->
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobDetails">
+            <list>
+                <ref bean="batchJob"/>
+            </list>
+        </property>
+        <property name="triggers">
+            <list>
+                <ref bean="dailyTrigger"/>
+
+            </list>
+        </property>
+    </bean>
+</beans>

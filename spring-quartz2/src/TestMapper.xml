@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DB_INTERFACE_001">
+
+	<select id="SelectTable1" resultType="Table1">
+		select name, age, jum from table1
+	</select>
+	
+</mapper>

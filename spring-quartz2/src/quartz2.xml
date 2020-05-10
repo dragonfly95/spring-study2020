@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<!--    <bean id="batchJob"       class="org.springframework.scheduling.quartz.JobDetailBean">-->
+    <bean name="batchJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="ScheduledTaskBean"/>
+        <property name="durability" value="true"/>
+    </bean>
+
+<!--    <bean id="dailyTrigger"   class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+    <bean id="dailyTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <property name="jobDetail" ref="batchJob"/>
+    <property name="cronExpression" value="*/10 * * * * ?"/>
+    <!-- 10초 마다 수행된다 -->
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    <property name="jobDetails">
+        <list>
+            <ref bean="batchJob"/>
+        </list>
+    </property>
+    <property name="triggers">
+        <list>
+            <ref bean="dailyTrigger"/>
+
+        </list>
+    </property>
+    </bean>
+</beans>

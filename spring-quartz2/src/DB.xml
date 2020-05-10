@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+
+<bean class="org.apache.commons.dbcp.BasicDataSource" id="TDB">
+        <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:oracle"/>
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="username" value="c##Test01"/>
+        <property name="password" value="1234"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="maxWait" value="0"/>
+        <property name="initialSize" value="8"/>
+        <property name="maxActive" value="8"/>
+        <property name="minIdle" value="0"/>
+        <property name="maxIdle" value="8"/>
+        <property name="validationQuery" value="SELECT 1 FROM DUAL"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="0"/>
+        <property name="minEvictableIdleTimeMillis" value="2000000"/>
+        <property name="numTestsPerEvictionRun" value="3"/>
+    </bean>
+
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="TDB" />
+		<property name="mapperLocations" >
+			<list>
+                <value>TestMapper.xml</value>
+			</list>
+		</property>
+		<property name="configLocation" value="configure.xml" />
+	</bean>
+
+  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="TDB" />
+	</bean>
+	</beans>
