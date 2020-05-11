@@ -24,7 +24,8 @@
 
 		<!-- Spring -->
 		<spring-framework.version>4.2.5.RELEASE</spring-framework.version>
-
+		<activemq.version>5.14.1</activemq.version>
+		
 		<!-- Hibernate / JPA -->
 		<hibernate.version>4.2.1.Final</hibernate.version>
 
@@ -270,6 +271,26 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring-framework.version}</version>
 		</dependency>
+
+        <!-- Spring JMS -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${spring-framework.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- ActiveMQ -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>
