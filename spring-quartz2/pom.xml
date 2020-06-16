@@ -23,7 +23,7 @@
 
 
 		<!-- Spring -->
-		<spring-framework.version>4.2.5.RELEASE</spring-framework.version>
+		<spring-framework.version>5.2.7.RELEASE</spring-framework.version>
 		<activemq.version>5.14.1</activemq.version>
 		
 		<!-- Hibernate / JPA -->
